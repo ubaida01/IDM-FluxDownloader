@@ -37,9 +37,11 @@ def validate_url(value: str) -> str:
     if port == 0:
         raise UnsafeURL("Invalid port in URL.")
     host = parsed.hostname.strip(".").lower()
-    if not host or host.endswith((".local", ".internal", ".localhost")) and not ALLOW_PRIVATE_HOSTS:
-        raise UnsafeURL("Local network addresses are blocked by default.")
+    if not host:
+        raise UnsafeURL("Please enter a valid URL.")
     if not ALLOW_PRIVATE_HOSTS:
+        if host == "localhost" or host.endswith((".local", ".internal", ".localhost")):
+            raise UnsafeURL("Local network addresses are blocked by default.")
         try:
             results = socket.getaddrinfo(host, port or (443 if parsed.scheme == "https" else 80), type=socket.SOCK_STREAM)
         except socket.gaierror as exc:
