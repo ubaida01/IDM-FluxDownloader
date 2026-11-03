@@ -1,0 +1,12 @@
+.venv
+.git
+.gitignore
+__pycache__
+*.pyc
+.pytest_cache
+pytest.ini
+tests
+data
+downloads
+preview
+*.zip

@@ -1,0 +1,12 @@
+services:
+  flux:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./downloads:/app/downloads
+    environment:
+      FLUX_HOST: 0.0.0.0
+      FLUX_PORT: 8000
